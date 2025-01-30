@@ -15,10 +15,10 @@
 #define RVMODEL_HALT \
 good_trap: \
   li a0, 0; \
-  call halt; \
+  jal halt; \
 bad_trap: \
   li a0, 1; \
-  call halt;
+  jal halt;
 
 #define RVMODEL_IO_INIT     // empty
 #define RVMODEL_IO_ASSERT_GPR_EQ(_SP, _R, _I) \
@@ -28,7 +28,7 @@ bad_trap: \
 .section .text
 .globl main
 main:
-  call rvtest_entry_point
+  jal rvtest_entry_point
   li a0, 0
   ret
 

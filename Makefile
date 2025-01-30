@@ -1,5 +1,5 @@
 # check ./riscv-test-suite/<TARGET_ISA>/ for more extensions
-TEST_ISA = I M
+TEST_ISA = I E M
 EXCLUDE_TEST =
 
 SUPPORTED_AM_ISA = riscv64 riscv32 riscv64e riscv32e riscv32mini
@@ -36,11 +36,11 @@ $(ALL): %: Makefile.%
 
 .SECONDEXPANSION:  # this helps to call function in prerequisite
 Makefile.%: $$(call find_src,%)
-	@/bin/echo -e "\
+	@bash -c 'echo -e "\
 NAME = $*\n\
 SRCS = $<\n\
 INC_PATH += $(shell pwd)/riscv-test-suite/env\n\
-include $${AM_HOME}/Makefile" > $@
+include $${AM_HOME}/Makefile"' > $@
 	@if make -s -f $@ ARCH=$(ARCH) $(MAKECMDGOALS); then \
 		printf "[%14s] $(COLOR_GREEN)PASS$(COLOR_NONE)\n" $* >> $(RESULT); \
 	else \

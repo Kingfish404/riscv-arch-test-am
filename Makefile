@@ -1,5 +1,5 @@
 # check ./riscv-test-suite/<TARGET_ISA>/ for more extensions
-TEST_ISA = I E M
+TEST_ISA = I E M A
 EXCLUDE_TEST =
 
 SUPPORTED_AM_ISA = riscv64 riscv32 riscv64e riscv32e riscv32mini
@@ -33,6 +33,8 @@ all: $(addprefix Makefile., $(ALL))
 	@echo "test list [$(words $(ALL)) item(s)]:" $(ALL)
 
 $(ALL): %: Makefile.%
+
+CFLAGS += -march=$(ARCH) -mabi=ilp32 -mno-relax
 
 .SECONDEXPANSION:  # this helps to call function in prerequisite
 Makefile.%: $$(call find_src,%)
